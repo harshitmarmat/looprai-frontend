@@ -1,6 +1,10 @@
+//@ts-ignore
 import searchIcon from "../assets/search.svg";
+//@ts-ignore
 import bellIcon from "../assets/bell.svg";
+//@ts-ignore
 import logo from "../assets/logo.svg";
+//@ts-ignore
 import wallet from "../assets/wallet.svg";
 import { Link, Outlet } from "react-router-dom";
 import Profile from "../components/Profile";

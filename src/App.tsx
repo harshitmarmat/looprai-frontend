@@ -1,7 +1,7 @@
 
 import {BrowserRouter, Route, Routes} from "react-router-dom"
 import Layout from "./layout/Layout"
-import DashBoard from "./dashboard/DashBoard"
+import DashBoard from "./dashboard/DashBoard.tsx"
 
 function App() {
 

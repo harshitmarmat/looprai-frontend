@@ -1,14 +1,33 @@
+//@ts-ignore
 import searchIcon from "../assets/search.svg";
+//@ts-ignore
 import { DateRange } from "react-date-range";
+//@ts-ignore
 import "react-date-range/dist/styles.css"; // main style file
+//@ts-ignore
 import "react-date-range/dist/theme/default.css";
 import { format } from "date-fns";
 import { useEffect, useState } from "react";
 import Card from "../components/Card";
 import Profile from "../components/Profile";
 import axios from "axios";
+
+interface Transaction {
+  amount: number;
+  category: string;
+  user_id: string;
+  status: string;
+  user_profile: string;
+  date: string;
+}
+
+interface TransactionData {
+  transactions: Transaction[];
+  totalPages: number;
+  currentPage: number;
+}
+
 const Transaction = () => {
-  // State for current page
   const [state, setState] = useState([
     {
       startDate: new Date(),
@@ -17,29 +36,31 @@ const Transaction = () => {
     },
   ]);
 
-  const [showCalendar, setShowCalendar] = useState(false);
 
-  const [tranxs, setTranxs] = useState(null);
+  const [tranxs, setTranxs] = useState<TransactionData>({
+    transactions: [],
+    totalPages: 0,
+    currentPage: 0,
+  });
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const fetchData = async () => {
     try {
       const query = new URLSearchParams();
-      if (page) query.append("page", page);
+      query.append("page", String(page));
       if (search.length > 0) query.append("search", search);
       if (state[0]?.startDate && state[0]?.endDate) {
-        query.append("startDate", state[0]?.startDate);
-        query.append("endDate", state[0]?.endDate);
+        query.append("startDate", state[0].startDate.toISOString());
+        //@ts-ignore
+        query.append("endDate", state[0].endDate?.toISOString());
       }
-      const res = await axios.get(
-        `${
-          import.meta.env.VITE_BASE_URL
-        }/api/transactions/by-date?${query.toString()}`
+      const res = await axios.get<TransactionData>(
+        //@ts-ignore
+        `${import.meta.env.VITE_BASE_URL}/api/transactions/by-date?${query.toString()}`
       );
-
-      setTranxs(res.data); // Update state with fetched data
+      setTranxs(res.data);
     } catch (err) {
-      return err;
+      console.error(err);
     }
   };
 
@@ -47,23 +68,23 @@ const Transaction = () => {
     fetchData();
   }, [page, search, state]);
   // Function to handle page change
-  const handlePageChange = (newPage) => {
+  const handlePageChange = (newPage:number) => {
     if (newPage >= 1 && newPage <= totalPages) {
       setPage(newPage);
       // Logic to fetch new data based on `newPage` (if needed, integrate an API call here)
     }
   };
 
-  const formatDate = (dateString) => {
+  const formatDate = (dateString:string) => {
     return format(new Date(dateString), "eee, dd MMM yyyy");
   };
 
   if (!tranxs) return <h1>No Data Found.</h1>;
 
-  const { transactions, totalPages, currentPage } = tranxs;
+  const { transactions, totalPages } = tranxs;
 
   console.log(state);
-  const formatDateCal = (dateString) => {
+  const formatDateCal = (dateString:string) => {
     return format(new Date(dateString), "dd MMM");
   };
 
@@ -88,9 +109,9 @@ const Transaction = () => {
         <div className="relative text-purple_la">
           <div className="dropdown dropdown-bottom  dropdown-end">
             <div tabIndex={0} role="button" className="text-purple_la btn m-1">
-              <p onClick={() => setShowCalendar(true)}>
-                {formatDateCal(state[0]?.startDate)} -{" "}
-                {formatDateCal(state[0]?.endDate)}
+              <p>
+                {/*@ts-ignore**/}
+                {formatDateCal(state[0]?.startDate)} -{" "}{formatDateCal(state[0]?.endDate)}
               </p>
             </div>
             <ul
@@ -99,8 +120,8 @@ const Transaction = () => {
             >
               <DateRange
                 editableDateInputs={true}
-                onChange={(item) => {
-                  console.log(item);
+                onChange={(item:any) => {
+                  setPage(1);
                   setState([item.selection]);
                 }}
                 moveRangeOnFirstSelection={false}
