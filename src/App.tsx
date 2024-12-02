@@ -9,7 +9,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout/> }>
-          <Route />
+          <Route path="/" element={<DashBoard/>}/>
           <Route path="/dashboard" element={<DashBoard/>} />
           <Route path="*" element={<div>Page is in maintenance</div>} />
         </Route>
