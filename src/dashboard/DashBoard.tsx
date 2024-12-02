@@ -3,7 +3,7 @@ import Insights from "./Insights.tsx";
 import AnalyticsGraph from "./AnalyticsGraph";
 
 import RecentTranx from "./RecentTranx.tsx";
-import Transaction from "./Transaction.tsx";
+import TransactionComp from "./Transaction.tsx";
 import axios, { AxiosResponse } from "axios";
 // Define interfaces for data structures
 interface InsightData {
@@ -95,7 +95,7 @@ const DashBoard = () => {
         <AnalyticsGraph  graph={data.graphData}/>
         <RecentTranx recentTranx={data.recentTranx} />
       </div>
-      <Transaction />
+      <TransactionComp />
     </div>
   );
 };
