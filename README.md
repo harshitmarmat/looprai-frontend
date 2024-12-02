@@ -17,8 +17,9 @@ Full-Stack Assignment: Financial Data Management and Analytics
 
 2. **Install dependencies:** `npm install`
 
-3. **Run the server:**  `npm run start`
 
 4. **Create .env file in root:** `attached in mail`
 
+3. **Run the server:**  `npm run preview`
+   
 
