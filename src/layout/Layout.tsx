@@ -49,7 +49,7 @@ const sideMenu = [
 
 const Layout = () => {
   return (
-    <div className="w-screen h-screen bg-secondary_la">
+    <div className="w-screen h-screen font-sans  bg-secondary_la">
       <div className="flex w-full h-full">
         <div className="w-[17%] flex flex-col items-center  h-full bg-primary_la">
           <img src={logo} className="mt-10 mb-4" alt="logo" />

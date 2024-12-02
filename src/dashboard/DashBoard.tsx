@@ -91,7 +91,7 @@ const DashBoard = () => {
   return (
     data && <div className="px-4  py-6">
       <Insights data={data.insightData}/>
-      <div className="flex gap-4 my-6">
+      <div className="flex gap-6 justify-between my-6">
         <AnalyticsGraph  graph={data.graphData}/>
         <RecentTranx recentTranx={data.recentTranx} />
       </div>

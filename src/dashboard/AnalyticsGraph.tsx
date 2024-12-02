@@ -134,7 +134,7 @@ const AnalyticsGraph = ({graph}) => {
     }
   }
   return (
-    <Card styles="relative w-[70%] p-6 flex items-center justify-between max-h-[50vh]">
+    <Card styles="relative w-[70%] px-6 flex items-center justify-between h-[50vh] max-h-[60vh]">
       <div className="dropdown dropdown-bottom absolute top-4 right-4 dropdown-end">
         <div tabIndex={0} role="button" className="btn m-1">{year}</div>
         <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
