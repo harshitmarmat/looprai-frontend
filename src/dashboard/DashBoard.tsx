@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Insights from "./Insights.tsx";
 import AnalyticsGraph from "./AnalyticsGraph";
 
@@ -30,17 +30,20 @@ interface Transaction {
 }
 
 interface DashboardData {
-  insightData: InsightData;
-  graphData: GraphData;
-  recentTranx: RecentTranxData;
+  insightData: InsightData | null;
+  graphData: GraphData | null;
+  recentTranx: RecentTranxData | null;
   // tranxData: any; // Uncomment if needed
 }
 const DashBoard = () => {
   const [data, setData] = useState<DashboardData | null>(null);
 
   const apiUrls = [
+//@ts-ignore
     axios.get<InsightData>(import.meta.env.VITE_BASE_URL + '/api/transactions/summary'),
+//@ts-ignore
     axios.get<RecentTranxData>(import.meta.env.VITE_BASE_URL + '/api/transactions/recent'),
+//@ts-ignore
     axios.get<GraphData>(import.meta.env.VITE_BASE_URL + '/api/transactions/monthly?year=2024'),
     // axios.get<any>(import.meta.env.VITE_BASE_URL + "/api/transactions/by-date?startDate=2024-01-01&endDate=2024-12-01"),
   ];
@@ -90,7 +93,8 @@ const DashBoard = () => {
 
   return (
     data && <div className="px-4  py-6">
-      <Insights data={data.insightData}/>
+      {/*@ts-ignore*/}
+    <Insights data={data.insightData}/>
       <div className="flex gap-6 justify-between my-6">
         <AnalyticsGraph  graph={data.graphData}/>
         <RecentTranx recentTranx={data.recentTranx} />

@@ -1,8 +1,7 @@
-import React from "react";
 import Card from "../components/Card";
 import Profile from "../components/Profile";
 
-const RecentTranx = ({ recentTranx }) => {
+const RecentTranx = ({ recentTranx }:any) => {
 
   return (
     <Card styles="w-[30%] h-fit">
@@ -11,7 +10,7 @@ const RecentTranx = ({ recentTranx }) => {
         <p className="text-green_la text-text-nwf2">See all</p>
       </div>
       <div className="mt-2">
-        {recentTranx.map((tranx) => {
+        {recentTranx.map((tranx:any) => {
           const {user_profile , category, user_id , amount} = tranx;
           const isExpenses = category.toLowerCase()==='expense'
           return (
